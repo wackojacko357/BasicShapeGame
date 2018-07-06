@@ -3,20 +3,22 @@ using UnityEngine.UI;
 
 public class Score : MonoBehaviour {
 
-    public Transform player;
-    public Text scoreText;
-    public Text highScoreText;
+    private Transform player;
+    private Text scoreText;
+    private Text highScoreText;
 
     public float scoreCount;
     private float highScoreCount;
-
-    public float pointsPerSecond;
 
     public bool scoreIncreasing;
 
 
    public void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        scoreText = GameObject.Find("Score").GetComponent<Text>();
+        highScoreText = GameObject.Find("HighScore").GetComponent<Text>();
+        scoreCount = 1f;
         if(PlayerPrefs.GetFloat("HighScore") != 0)
         {
             highScoreCount = PlayerPrefs.GetFloat("HighScore");
@@ -25,9 +27,9 @@ public class Score : MonoBehaviour {
      
     void Update ()
     {
-        if (scoreIncreasing)
+        if (scoreIncreasing && !TimeBody.isRewinding)
         {
-            scoreCount += pointsPerSecond = 2f * Time.deltaTime;
+            scoreCount += 2f * Time.deltaTime;
         }
 
         if (scoreCount > highScoreCount)

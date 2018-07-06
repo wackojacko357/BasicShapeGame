@@ -3,11 +3,16 @@ using System.Collections;
 
 public class FollowPlayer : MonoBehaviour {
 
-    public Transform Player;
+    private Transform Player;
     public Vector3 offset;
 
-	// Update is called once per frame
-	void Update ()
+    private void Start()
+    {
+        Player = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+    }
+
+
+    void Update ()
     {
         transform.position = Player.position + offset;
 	}

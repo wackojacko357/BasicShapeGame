@@ -9,8 +9,17 @@ public class ButtonManager : MonoBehaviour
     public GameObject settingsPanel;
     public GameObject optionsPanel;
     public GameObject ShopPanel;
-    public GameObject cube;
+    private GameObject cube;
+    private AudioSource myMusic;
+
     private bool isPaused;
+
+    public void Start()
+    {
+        isPaused = false;
+        cube = GameObject.FindGameObjectWithTag("Player");
+        myMusic = GameObject.FindGameObjectWithTag("Player").GetComponent<AudioSource>();
+    }
 
     //Starts Level 1
     public void PlayBtn(string playLevel)
@@ -31,6 +40,14 @@ public class ButtonManager : MonoBehaviour
         settingsPanel.SetActive(false);
         Time.timeScale = 1;
         isPaused = false;
+        PlayerPrefs.Save();
+    }
+
+    public void Settings()
+    {
+        settingsPanel.SetActive(true);
+        optionsPanel.SetActive(false);
+        ShopPanel.SetActive(false);
     }
 
     //Hides the settings/puase menu & shows the options menu
@@ -46,6 +63,7 @@ public class ButtonManager : MonoBehaviour
         settingsPanel.SetActive(true);
         optionsPanel.SetActive(false);
         ShopPanel.SetActive(false);
+        PlayerPrefs.SetFloat("volume", myMusic.volume);
         PlayerPrefs.Save();
     }
 
@@ -77,7 +95,7 @@ public class ButtonManager : MonoBehaviour
     //When Escape is pressed, open settings menu and pause game.
     void Update()
     {
-        if (Input.GetKey(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             isPaused = !isPaused;
             if (isPaused)
@@ -85,13 +103,11 @@ public class ButtonManager : MonoBehaviour
                 settingsPanel.SetActive(true);
                 Time.timeScale = 0;
             }
-            settingsPanel.SetActive(false);
-            Time.timeScale = 1;
+            else
+            {
+                settingsPanel.SetActive(false);
+                Time.timeScale = 1;
+            }
         }
-    }
-
-    private void Start()
-    {
-        isPaused = false;
     }
 }

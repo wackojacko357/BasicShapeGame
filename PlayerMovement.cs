@@ -4,10 +4,15 @@ using System.Collections;
 public class PlayerMovement : MonoBehaviour
 {
 
-    public Rigidbody rb;
+    private Rigidbody rb;
     public float ForwardForce = 2000f;
     public float sidewaysForce = 0.2f;
     // Update is called once per frame
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
 
     void FixedUpdate()
     {

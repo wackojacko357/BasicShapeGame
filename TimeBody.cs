@@ -26,14 +26,12 @@ public class TimeBody : MonoBehaviour
     {
         transform.position = positions[0];
         positions.RemoveAt(0);
-
     }
 
     void Record()
     {
         positions.Insert(0, transform.position);
     }
-
 
     // Update is called once per frame
     void Update ()

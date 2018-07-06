@@ -26,7 +26,6 @@ public class GameManager : MonoBehaviour
 
     void restart()
     {
-        theScore.scoreIncreasing = false;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
         theScore.scoreCount = 0;
